@@ -33,12 +33,33 @@ tigera-operator    tigera-operator-54b47459dd-fq8kk           1/1     Running   
 
 ## Setup HammerDB TPROC-C MySQL Database for SUT ##
 
-Go to mysql folder from repository top directory
+Pull public MySQL container image using docker (v8.0.17 at time of writing)
 ```console
-cd mysql
+docker pull mysql:8.0.17
 ```
 
-- - - -
+Save MySQL docker image as .tar file
+```console
+docker save mysql:8.0.17 > mysql.tar
+```
+ 
+Import MySQL container image to ContainerD K8s namespace 
+ ```console
+ sudo ctr -n=k8s.io image import mysql.tar
+```
+
+Go to mysql folder in repository
+```console
+cd TRPOC-Benchmark/mysql
+```
+
+>Set the desired memory size for your MySQL database
+```console
+vi conf.d/my.cnf
+>> Specify the memory size here (currently set to 24GB):
+```console
+innodb_buffer_pool_size=24G
+```
 
 ## Setup HammerDB TPROC for Load Generator ##
 
