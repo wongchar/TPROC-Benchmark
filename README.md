@@ -1,5 +1,9 @@
 # TPROC-Benchmark using MySQL Database
 
+##Create Striped LVM##
+
+Ensure NPs
+
 ## Install Kubernetes with ContainerD ##
 Version at time of writing:
 - Ubuntu 22.04
