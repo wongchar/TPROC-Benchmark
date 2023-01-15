@@ -2,7 +2,7 @@
 
 ## Create Striped LVM ##
 
-Ensure BIOS setting is set to NPS=1 \ 
+Ensure BIOS setting is set to NPS=1 \
 Ensure NVMEs are physically installed so there are equal quantities on each NUMA node (if using 2-socket system) \
 
 
