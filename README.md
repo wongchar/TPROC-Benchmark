@@ -1,8 +1,10 @@
 # TPROC-Benchmark using MySQL Database
 
-##Create Striped LVM##
+## Create Striped LVM ##
 
-Ensure NPs
+Ensure BIOS setting is set to NPS=1 \ 
+Ensure NVMEs are physically installed so there are equal quantities on each NUMA node (if using 2-socket system) \
+
 
 ## Install Kubernetes with ContainerD ##
 Version at time of writing:
