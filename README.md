@@ -2,9 +2,7 @@
 
 ## Create Striped LVM ##
 
-Ensure BIOS setting is set to NPS=1 \
-Ensure NVMEs are physically installed so there are equal quantities on each NUMA node (if using 2-socket system) \
-
+- - - -
 
 ## Install Kubernetes with ContainerD ##
 Version at time of writing:
@@ -171,7 +169,7 @@ sudo kubeadm join 10.216.177.81:6443 --token pxskra.4lurssigp18i3h4v \
 
 - - - -
 
-## Install Docker CE ##
+## Install Docker CE on Load Generator ##
 https://docs.docker.com/engine/install/ubuntu/
 - - - -
 
