@@ -1,6 +1,6 @@
 # TPROC-Benchmark using MySQL Database
 
-## Create Striped LVM ##
+## Create Striped LVM and mount point ##
 
 - - - -
 
@@ -175,34 +175,56 @@ https://docs.docker.com/engine/install/ubuntu/
 
 ## Setup HammerDB TPROC-C MySQL Database for SUT ##
 
-Pull public MySQL container image using docker (v8.0.17 at time of writing)
-```console
-docker pull mysql:8.0.17
+Set Static CPU Management Policy
+```
+Instructions go here
 ```
 
-Save MySQL docker image as .tar file
-```console
-docker save mysql:8.0.17 > mysql.tar
+Set Static Memory Management Policy
 ```
- 
-Import MySQL container image to ContainerD K8s namespace 
- ```console
- sudo ctr -n=k8s.io image import mysql.tar
+ToDo
 ```
 
-docker.io/library/mysql:8.0.17
-
-Go to mysql folder in repository
-```console
-cd TRPOC-Benchmark/mysql
+On the SUT, install Multus:
+```
+git clone https://github.com/k8snetworkplumbingwg/multus-cni.git
+kubectl apply -f multus-cni/deployments/multus-daemonset.yml
 ```
 
->Set the desired memory size for your MySQL database
-```console
-vi conf.d/my.cnf
->> Specify the memory size here (currently set to 24GB):
-```console
-innodb_buffer_pool_size=24G
+Copy the conf.d folder of this repository to your drive mount point for each NUMA
+```
+cp -r mysql/conf.d /mnt
+```
+
+Update the required memory for the MySQL database in conf.d/my.cnf file here (currently set at 20G):
+```
+innodb_buffer_pool_size=20G
+```
+
+Create a empty directory called db1 on your mount point. This will be where the TPC database is built.
+```
+mkdir /mnt/db1
+```
+
+Update the tpc-db.yaml file found under the mysql directory to reflect your setup. \
+Ensure the yaml file reflects your NIC physical function name under the NetworkAttachmentDefinition:
+```
+"master": "enp129s0f0np0",
+```
+You may also change the address under the NetworkAttachmentDefintion. \
+Ensure the yaml file reflects the name of your mount paths (do not change volumeMounts):
+```
+      volumes:
+        - name: tpc-db1-conf
+          hostPath:
+            path: /mnt/conf.d
+        - name: tpc-db1-vol
+          hostPath:
+            path: /mnt/db1
+```
+Launch the pod that will run a MySQL container listening at the specified address at port 3306:
+```
+kubectl apply -f tpc-db.yaml
 ```
 
 ## Setup HammerDB TPROC for Load Generator ##
@@ -211,3 +233,90 @@ Clone the HammerDB repository
 ```console
 git clone https://github.com/TPC-Council/HammerDB.git
 ```
+
+Build the HammerDB Docker Image:
+```
+cd HammerDB/Docker
+docker build -t hammerdb .
+```
+
+Copy the tpcc directory of this repository to the load generator. Create the load generator image:
+```
+cd tpcc/
+doker build -t tpcc .
+```
+
+Run the container in interactive mode:
+```
+docker run -it --rm tpcc bash
+```
+
+Set the environment variables and build the initial database: \
+Warehouse and Virtual User variables need to be set to create desired database size. \
+See more here: https://www.hammerdb.com/blog/uncategorized/how-many-warehouses-for-the-hammerdb-tpc-c-test/
+```
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# export DBHOST=192.78.1.101    
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# export DBPORT=3306         
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# export MYSQL_USER=root 
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# export MYSQL_PASSWORD=password 
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# export WH=400 
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# export VU=64 
+root@c10b1e311091:/home/hammerdb/HammerDB-4.5# ./hammerdbcli
+hammerdb> source build.tcl
+```
+
+## Scaling the TPC-C Benchmark ##
+Once the output shows that the database build is complete, exit the container on the load generator and delete the pod on the SUT. \
+The database that will be used will be saved at your specified mount point. You can check the size using the following:
+```
+cd /mnt
+sudo du -h
+```
+
+Copy the database as your gold database for reuse so you do not have to rebuild the database:
+```
+cp -r /mnt/db1 /mnt/golddb
+```
+
+Copy the gold database to the number of instances you are trying to scale to. Keep in mind to balance the pods across NUMAs.
+```
+cp -r /mnt/golddb /mnt/db2
+...
+cp -r /mnt/golddb /mnt/db16
+cp -r /mnt/golddb /mnt2/db17
+...
+cp -r /mnt/golddb /mnt2/db32
+```
+
+Next, use script-gen.sh found under mysql/scripts in this repository to create your yaml file. \
+Be sure to update the physical function name, the first three numbers of the address and CPU/Memory limits and request before running. \
+```
+./script-gen.sh mnt 16 > numa0.yaml
+```
+
+Launch the pods and wait for them to reach a running state (should take less than a minute):
+```
+kubectl apply -f numa0.yaml
+```
+
+If pods fail to initialize due to MySQL, delete the pods and apply the following:
+```
+sudo sysctl -w fs.aio-max-nr=1048576
+sudo sysctl -w fs.file-max=6815744
+sudo sysctl --system
+```
+
+Relaunch the pods. \
+\
+On the load generator, copy the docker-compose.yml file under the tpcc directory to the system. \
+Update the number of hammerdb container images, the respective DBHOST, and the desired number of warehouses and virtual users for all containers.
+```
+docker-compose up > output.log
+```
+
+Once the test is complete, use the following command to obtain results:
+```
+grep NOPM output.log
+```
+
+
