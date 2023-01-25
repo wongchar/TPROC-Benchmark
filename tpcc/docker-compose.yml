@@ -1,0 +1,323 @@
+version: '3.3'
+
+services:
+  hammerdb1:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.1
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb2:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.2
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb3:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.3
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb4:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.4
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb5:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.5
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb6:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.6
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb7:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.7
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb8:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.8
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb9:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.9
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb10:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.10
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb11:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.11
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb12:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.12
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb13:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.13
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb14:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.14
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb15:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.15
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb16:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.16
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb17:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.17
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb18:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.18
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb19:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.19
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb20:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.20
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb21:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.21
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb22:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.22
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb23:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.23
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb24:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.24
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb25:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.25
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb26:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.26
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb27:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.27
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb28:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.28
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb29:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.29
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb30:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.30
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb31:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.31
+      - DBPORT=3306
+      - WH=100
+      - VU=16
+  hammerdb32:
+    image: tpcc:latest
+    restart: "no"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - DBHOST=192.78.1.32
+      - DBPORT=3306
+      - WH=100
+      - VU=16
