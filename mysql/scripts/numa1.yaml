@@ -1,0 +1,1248 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm17
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.17/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db17
+  labels:
+    app: tpc-db17
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db17
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm17
+      labels:
+        app: tpc-db17
+    spec:
+      containers:
+      - name: tpc-db17
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db17-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db17-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db17-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db17-vol
+          hostPath:
+            path: /two/db17
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm18
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.18/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db18
+  labels:
+    app: tpc-db18
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db18
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm18
+      labels:
+        app: tpc-db18
+    spec:
+      containers:
+      - name: tpc-db18
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db18-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db18-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db18-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db18-vol
+          hostPath:
+            path: /two/db18
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm19
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.19/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db19
+  labels:
+    app: tpc-db19
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db19
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm19
+      labels:
+        app: tpc-db19
+    spec:
+      containers:
+      - name: tpc-db19
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db19-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db19-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db19-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db19-vol
+          hostPath:
+            path: /two/db19
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm20
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.20/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db20
+  labels:
+    app: tpc-db20
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db20
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm20
+      labels:
+        app: tpc-db20
+    spec:
+      containers:
+      - name: tpc-db20
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db20-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db20-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db20-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db20-vol
+          hostPath:
+            path: /two/db20
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm21
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.21/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db21
+  labels:
+    app: tpc-db21
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db21
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm21
+      labels:
+        app: tpc-db21
+    spec:
+      containers:
+      - name: tpc-db21
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db21-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db21-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db21-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db21-vol
+          hostPath:
+            path: /two/db21
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm22
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.22/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db22
+  labels:
+    app: tpc-db22
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db22
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm22
+      labels:
+        app: tpc-db22
+    spec:
+      containers:
+      - name: tpc-db22
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db22-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db22-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db22-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db22-vol
+          hostPath:
+            path: /two/db22
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm23
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.23/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db23
+  labels:
+    app: tpc-db23
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db23
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm23
+      labels:
+        app: tpc-db23
+    spec:
+      containers:
+      - name: tpc-db23
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db23-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db23-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db23-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db23-vol
+          hostPath:
+            path: /two/db23
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm24
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.24/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db24
+  labels:
+    app: tpc-db24
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db24
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm24
+      labels:
+        app: tpc-db24
+    spec:
+      containers:
+      - name: tpc-db24
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db24-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db24-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db24-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db24-vol
+          hostPath:
+            path: /two/db24
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm25
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.25/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db25
+  labels:
+    app: tpc-db25
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db25
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm25
+      labels:
+        app: tpc-db25
+    spec:
+      containers:
+      - name: tpc-db25
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db25-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db25-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db25-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db25-vol
+          hostPath:
+            path: /two/db25
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm26
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.26/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db26
+  labels:
+    app: tpc-db26
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db26
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm26
+      labels:
+        app: tpc-db26
+    spec:
+      containers:
+      - name: tpc-db26
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db26-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db26-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db26-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db26-vol
+          hostPath:
+            path: /two/db26
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm27
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.27/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db27
+  labels:
+    app: tpc-db27
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db27
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm27
+      labels:
+        app: tpc-db27
+    spec:
+      containers:
+      - name: tpc-db27
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db27-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db27-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db27-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db27-vol
+          hostPath:
+            path: /two/db27
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm28
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.28/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db28
+  labels:
+    app: tpc-db28
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db28
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm28
+      labels:
+        app: tpc-db28
+    spec:
+      containers:
+      - name: tpc-db28
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db28-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db28-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db28-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db28-vol
+          hostPath:
+            path: /two/db28
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm29
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.29/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db29
+  labels:
+    app: tpc-db29
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db29
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm29
+      labels:
+        app: tpc-db29
+    spec:
+      containers:
+      - name: tpc-db29
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db29-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db29-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db29-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db29-vol
+          hostPath:
+            path: /two/db29
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm30
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.30/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db30
+  labels:
+    app: tpc-db30
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db30
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm30
+      labels:
+        app: tpc-db30
+    spec:
+      containers:
+      - name: tpc-db30
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db30-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db30-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db30-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db30-vol
+          hostPath:
+            path: /two/db30
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm31
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.31/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db31
+  labels:
+    app: tpc-db31
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db31
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm31
+      labels:
+        app: tpc-db31
+    spec:
+      containers:
+      - name: tpc-db31
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db31-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db31-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db31-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db31-vol
+          hostPath:
+            path: /two/db31
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: comm32
+spec:
+  config: '{
+          "cniVersion": "0.4.0",
+          "plugins": [
+            {
+              "type": "macvlan",
+              "capabilities": { "ips": true },
+              "master": "enp129s0f0np0",
+              "mode": "bridge",
+              "ipam": {
+                "type": "static",
+                "addresses": [
+                  {
+                    "address": "192.78.1.32/24"
+                  }
+                ]
+              }
+            }
+          ]    
+  }'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tpc-db32
+  labels:
+    app: tpc-db32
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tpc-db32
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: comm32
+      labels:
+        app: tpc-db32
+    spec:
+      containers:
+      - name: tpc-db32
+        image: mysql:8.0.31
+        resources:
+          limits:
+            cpu: 16
+            memory: 22Gi
+          requests:
+            cpu: 16
+            memory: 22Gi
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_DATABASE
+            value: tpc
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_SOCKET_DIR
+            value: '"/var/lib/mysql/sock"'
+        volumeMounts:
+          - name: tpc-db32-conf
+            mountPath: /etc/mysql/conf.d
+          - name: tpc-db32-vol
+            mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: tpc-db32-conf
+          hostPath:
+            path: /two/conf.d
+        - name: tpc-db32-vol
+          hostPath:
+            path: /two/db32
