@@ -2,6 +2,109 @@
 
 ## Create Striped LVM and mount point ##
 
+```
+lsblk
+```
+
+```
+sudo pvcreate /dev/nvme0n1
+```
+
+```
+amd@amdbergamo-d4c2:~$ sudo pvcreate /dev/nvme0n1
+  Physical volume "/dev/nvme0n1" successfully created.
+```
+
+```
+amd@amdbergamo-d4c2:~$ sudo pvs
+  PV           VG Fmt  Attr PSize PFree
+  /dev/nvme0n1    lvm2 ---  2.91t 2.91t
+  /dev/nvme1n1    lvm2 ---  2.91t 2.91t
+  /dev/nvme2n1    lvm2 ---  2.91t 2.91t
+  /dev/nvme4n1    lvm2 ---  2.91t 2.91t
+  /dev/nvme6n1    lvm2 ---  2.91t 2.91t
+  /dev/nvme7n1    lvm2 ---  2.91t 2.91t
+  /dev/nvme8n1    lvm2 ---  2.91t 2.91t
+```
+
+
+```
+amd@amdbergamo-d4c2:~$ sudo vgcreate data1 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1
+  Volume group "data1" successfully created
+amd@amdbergamo-d4c2:~$ sudo vgcreate data2 /dev/nvme6n1 /dev/nvme7n1 /dev/nvme8n1
+  Volume group "data2" successfully created
+```
+
+
+```
+sudo vgdisplay -v
+```
+
+```
+amd@amdbergamo-d4c2:~$ sudo lvcreate -L 8.7T -I 256k -i 3 -n lv_data1 data1
+  Rounding up size to full physical extent 8.70 TiB
+  Rounding size 8.70 TiB (2280653 extents) up to stripe boundary size 8.70 TiB(2280654 extents).
+  Logical volume "lv_data1" created.
+amd@amdbergamo-d4c2:~$ sudo lvcreate -L 8.7T -I 256k -i 3 -n lv_data2 data2
+  Rounding up size to full physical extent 8.70 TiB
+  Rounding size 8.70 TiB (2280653 extents) up to stripe boundary size 8.70 TiB(2280654 extents).
+  Logical volume "lv_data2" created.
+```
+
+```
+sudo lvdisplay -m
+```
+
+```
+amd@amdbergamo-d4c2:~$ sudo mkfs.ext4 /dev/data1/lv_data1
+mke2fs 1.45.5 (07-Jan-2020)
+Discarding device blocks: done
+Creating filesystem with 2335389696 4k blocks and 291926016 inodes
+Filesystem UUID: 17f666ff-3284-4ae8-b034-c1bf02d25daf
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, 23887872, 71663616, 78675968,
+        102400000, 214990848, 512000000, 550731776, 644972544, 1934917632
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+```
+
+```
+amd@amdbergamo-d4c2:~$ sudo mkdir /mnt1
+amd@amdbergamo-d4c2:~$ sudo mkdir /mnt2
+```
+
+```
+amd@amdbergamo-d4c2:~$ cat /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme5n1p2 during curtin installation
+/dev/disk/by-uuid/980543b3-4a66-44f5-a2c1-9c19a28d353b / ext4 defaults 0 0
+# /boot/efi was on /dev/nvme5n1p1 during curtin installation
+/dev/disk/by-uuid/5274-4A80 /boot/efi vfat defaults 0 0
+#/swap.img      none    swap    sw      0       0
+/dev/data1/lv_data1 /mnt1 ext4 defaults 1 2
+/dev/data2/lv_data2 /mnt2 ext4 defaults 1 2
+```
+
+```
+amd@amdbergamo-d4c2:~$ sudo mount /mnt1
+amd@amdbergamo-d4c2:~$ sudo mount /mnt2
+```
+
+```
+lsblk to confirm
+```
+
+
 - - - -
 
 ## Install Kubernetes with ContainerD ##
