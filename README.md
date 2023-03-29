@@ -418,7 +418,16 @@ sudo sysctl -w fs.aio-max-nr=1048576
 sudo sysctl -w fs.file-max=6815744
 sudo sysctl --system
 ```
-
+\
+For additional performance, set the CPU Scaling Governor to Max Performance:
+```
+echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+```
+Confirm if changes took effect:
+```
+cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+``` 
+\
 Relaunch the pods. \
 \
 On the load generator, copy the docker-compose.yml file under the tpcc directory to the system. \
