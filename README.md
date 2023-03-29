@@ -288,12 +288,20 @@ Modify the file by adding the following flags:
 ExecStart=/usr/bin/kubelet --cpu-manager-policy=static --reserved-cpus=0-7 --memory-manager-policy=Static --reserved-memory='0:memory=100Mi' $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 ```
 
+Perform the following to enable the Static policies:
+```
+sudo rm -rf /var/lib/kubelet/cpu_manager_state
+sudo rm -rf /var/lib/kubelet/memory_manager_state
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+```
+\
 On the SUT, install Multus:
 ```
 git clone https://github.com/k8snetworkplumbingwg/multus-cni.git
 kubectl apply -f multus-cni/deployments/multus-daemonset.yml
 ```
-
+\
 Copy the conf.d folder of this repository to your drive mount point for each NUMA
 ```
 cp -r mysql/conf.d /mnt
@@ -430,5 +438,4 @@ Confirm if changes took effect:
 ```
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ``` 
-\
 
