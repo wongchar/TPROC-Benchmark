@@ -280,12 +280,22 @@ https://docs.docker.com/engine/install/ubuntu/
 
 Set Static CPU Management Policy
 ```
-Instructions go here
+sudo vi /etc/systemd/system/ku
 ```
 
-Set Static Memory Management Policy
+Modify the file by adding the following flags:
 ```
-ToDo
+copy and paste here
+```
+
+Set Static NUMA Memory Management Policy
+```
+sudo vi /etc/systemd/system/ku
+```
+
+To enable to the Static NUMA Memory Management Policy:
+```
+eviction default is 100Mi
 ```
 
 On the SUT, install Multus:
