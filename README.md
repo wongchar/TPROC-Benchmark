@@ -452,4 +452,15 @@ Confirm if changes took effect:
 ```
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ``` 
+ \
+Remove Kubernetes and ContainerD:
+```
+sudo kubeadm reset
+sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni
+sudo rm -rf /etc/cni/net.d
+sudo rm -rf ~/.kube
+sudo apt-get purge containerd.io
+sudo apt-get autoremove
+```
+
 
