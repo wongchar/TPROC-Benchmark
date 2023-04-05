@@ -452,7 +452,8 @@ Confirm if changes took effect:
 ```
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ``` 
- \
+
+ 
 Remove Kubernetes and ContainerD:
 ```
 sudo kubeadm reset
