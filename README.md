@@ -7,7 +7,7 @@ Ensure NVME drives are balanced across NUMAs. Four 2.9TB NVME drives will be uti
 ```
 lstopo
 ```
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/wongchar/TPROC-Benchmark/blob/main/lstopo.PNG)
 
 
 ```
