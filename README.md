@@ -2,12 +2,12 @@
 
 ## Create Striped LVM and mount point ##
 
-Ensure NVME drives are balanced across NUMAs
+Ensure NVME drives are balanced across NUMAs. Four 2.9TB NVME drives will be utilized per NUMA node for this demonstration.
 
 ```
 lstopo
 ```
-
+![Screenshot](lstopo.png)
 
 
 ```
