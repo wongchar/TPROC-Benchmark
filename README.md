@@ -2,9 +2,13 @@
 
 ## Create Striped LVM and mount point ##
 
+Ensure NVME drives are balanced across NUMAs
+
 ```
-lsblk
+lstopo
 ```
+
+
 
 ```
 sudo pvcreate /dev/nvme0n1
