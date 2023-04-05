@@ -9,7 +9,7 @@ lstopo
 ```
 ![alt text](https://github.com/wongchar/TPROC-Benchmark/blob/main/lstopo.PNG)
 
-
+Create the physical volume (PV) for each NVME drive using the following command:
 ```
 sudo pvcreate /dev/nvme0n1
 ```
@@ -19,6 +19,7 @@ amd@amdbergamo-d4c2:~$ sudo pvcreate /dev/nvme0n1
   Physical volume "/dev/nvme0n1" successfully created.
 ```
 
+Confirm the PV status:
 ```
 amd@amdbergamo-d4c2:~$ sudo pvs
   PV           VG Fmt  Attr PSize PFree
@@ -31,34 +32,39 @@ amd@amdbergamo-d4c2:~$ sudo pvs
   /dev/nvme8n1    lvm2 ---  2.91t 2.91t
 ```
 
-
+Create the volume group (VG) for each NUMA node using the following commands:
 ```
-amd@amdbergamo-d4c2:~$ sudo vgcreate data1 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1
+amd@amdbergamo-d4c2:~$ sudo vgcreate data1 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
   Volume group "data1" successfully created
-amd@amdbergamo-d4c2:~$ sudo vgcreate data2 /dev/nvme6n1 /dev/nvme7n1 /dev/nvme8n1
+amd@amdbergamo-d4c2:~$ sudo vgcreate data2 /dev/nvme5n1 /dev/nvme6n1 /dev/nvme7n1 /dev/nvme8n1
   Volume group "data2" successfully created
 ```
 
-
+Confirm the VG status:
 ```
 sudo vgdisplay -v
 ```
+Create to logical volume (LV) for each volume group that was created using the following commands:
 
 ```
-amd@amdbergamo-d4c2:~$ sudo lvcreate -L 8.7T -I 256k -i 3 -n lv_data1 data1
-  Rounding up size to full physical extent 8.70 TiB
-  Rounding size 8.70 TiB (2280653 extents) up to stripe boundary size 8.70 TiB(2280654 extents).
+amd@amdbergamo-d4c2:~$ sudo lvcreate -L 11.6T -I 256k -i 4 -n lv_data1 data1
   Logical volume "lv_data1" created.
-amd@amdbergamo-d4c2:~$ sudo lvcreate -L 8.7T -I 256k -i 3 -n lv_data2 data2
-  Rounding up size to full physical extent 8.70 TiB
-  Rounding size 8.70 TiB (2280653 extents) up to stripe boundary size 8.70 TiB(2280654 extents).
+amd@amdbergamo-d4c2:~$ sudo lvcreate -L 11.6T -I 256k -i 4 -n lv_data2 data2
   Logical volume "lv_data2" created.
 ```
+**-L** Volume size \
+**-I** Stripe size \
+**-i** Number of disks \
+**-n** Create LV name \
+**data1** or **data2** is the corresponding volume group to use \
+\
 
+Confirm the logical volumes are created:
 ```
 sudo lvdisplay -m
 ```
 
+Format the LVs for the ext4 partition using the following command:
 ```
 amd@amdbergamo-d4c2:~$ sudo mkfs.ext4 /dev/data1/lv_data1
 mke2fs 1.45.5 (07-Jan-2020)
@@ -76,11 +82,13 @@ Creating journal (262144 blocks): done
 Writing superblocks and filesystem accounting information: done
 ```
 
+Create mount points for each LV:
 ```
 amd@amdbergamo-d4c2:~$ sudo mkdir /mnt1
 amd@amdbergamo-d4c2:~$ sudo mkdir /mnt2
 ```
 
+Add the mount points to the /etc/fstab file as follows:
 ```
 amd@amdbergamo-d4c2:~$ cat /etc/fstab
 # /etc/fstab: static file system information.
@@ -99,13 +107,15 @@ amd@amdbergamo-d4c2:~$ cat /etc/fstab
 /dev/data2/lv_data2 /mnt2 ext4 defaults 1 2
 ```
 
+Mount the drives:
 ```
 amd@amdbergamo-d4c2:~$ sudo mount /mnt1
 amd@amdbergamo-d4c2:~$ sudo mount /mnt2
 ```
 
+Confirm the mount points:
 ```
-lsblk to confirm
+lsblk
 ```
 
 
