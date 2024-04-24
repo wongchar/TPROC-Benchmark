@@ -420,7 +420,7 @@ docker build -t hammerdb .
 Copy the tpcc directory of this repository to the load generator. Create the load generator image:
 ```
 cd tpcc/
-doker build -t tpcc .
+docker build -t tpcc .
 ```
 
 Run the container in interactive mode:
