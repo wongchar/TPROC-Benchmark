@@ -122,7 +122,7 @@ OR Mount Individual Drives:
 ```
 sudo mkfs.ext4 /dev/nvme0n1
 ...
-sudo mkfs.ext4 /dev/nvme0n8
+sudo mkfs.ext4 /dev/nvme7n1
 ```
 Make sure not to wipe the disk that contains your OS
 
@@ -142,7 +142,7 @@ amd@amdbergamo-d4c2:~$ cat /etc/fstab
 /dev/disk/by-uuid/5274-4A80 /boot/efi vfat defaults 0 0
 #/swap.img      none    swap    sw      0       0
 /dev/nvme0n1 /mnt1 ext4 defaults 1 2
-/dev/nvme0n2 /mnt2 ext4 defaults 1 2
+/dev/nvme1n1 /mnt2 ext4 defaults 1 2
 ```
 Mount the drives:
 ```
