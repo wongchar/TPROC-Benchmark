@@ -118,7 +118,42 @@ Confirm the mount points:
 lsblk
 ```
 
+OR Mount Individual Drives:
+```
+sudo mkfs.ext4 /dev/nvme0n1
+...
+sudo mkfs.ext4 /dev/nvme0n8
+```
+Make sure not to wipe the disk that contains your OS
 
+Add the mount points to the /etc/fstab file as follows:
+```
+amd@amdbergamo-d4c2:~$ cat /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme5n1p2 during curtin installation
+/dev/disk/by-uuid/980543b3-4a66-44f5-a2c1-9c19a28d353b / ext4 defaults 0 0
+# /boot/efi was on /dev/nvme5n1p1 during curtin installation
+/dev/disk/by-uuid/5274-4A80 /boot/efi vfat defaults 0 0
+#/swap.img      none    swap    sw      0       0
+/dev/nvme0n1 /mnt1 ext4 defaults 1 2
+/dev/nvme0n2 /mnt2 ext4 defaults 1 2
+```
+Mount the drives:
+```
+amd@amdbergamo-d4c2:~$ sudo mount /mnt1
+amd@amdbergamo-d4c2:~$ sudo mount /mnt2
+```
+
+Confirm the mount points:
+```
+lsblk
+```
 - - - -
 
 ## Install Kubernetes with ContainerD ##
@@ -197,10 +232,14 @@ sudo systemctl restart containerd
 
 Install Kubernetes
 ```
+For v1.27-
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 OR
+
+For v1.28+
 
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -301,6 +340,12 @@ https://docs.docker.com/engine/install/ubuntu/
 
 Set Static CPU Management Policy and Static NUMA-aware Memory Manager
 ```
+For 1.28+
+
+sudo vi /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+For v1.27-
+
 sudo vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
