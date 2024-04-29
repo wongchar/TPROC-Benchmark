@@ -514,6 +514,8 @@ sudo rm -rf /etc/cni/net.d
 sudo rm -rf ~/.kube
 sudo apt-get purge containerd.io
 sudo apt-get autoremove
+sudo ctr -n k8s.io i rm $(sudo ctr -n k8s.io i ls -q | grep your_filter)
+sudo ctr -n k8s.io c rm $(sudo ctr -n k8s.io c ls -q | grep your_filter)
 ```
 
 
