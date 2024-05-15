@@ -408,7 +408,7 @@ kubectl apply -f tpc-db.yaml
 
 Clone the HammerDB repository
 ```console
-git clone https://github.com/TPC-Council/HammerDB.git
+git clone --branch v4.5-docker https://github.com/TPC-Council/HammerDB.git
 ```
 
 Build the HammerDB Docker Image:
