@@ -487,7 +487,7 @@ Relaunch the pods. \
 On the load generator, copy the docker-compose.yml file under the tpcc directory to the system. \
 Update the number of hammerdb container images, the respective DBHOST, and the desired number of warehouses and virtual users for all containers.
 ```
-docker-compose up > output.log
+docker compose up > output.log
 ```
 
 Once the test is complete, use the following command to obtain results:
